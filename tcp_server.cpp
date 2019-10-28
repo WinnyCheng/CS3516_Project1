@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-
 #include <netinet/in.h>
 
-int main() {
+#include "Log.h"
 
+int main() {
+	Log log = Log();
+	log.serverStarted();
 	char server_message[256] = "You have reached the server";
 
 	// create the server socket
