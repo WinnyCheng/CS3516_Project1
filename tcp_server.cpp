@@ -4,12 +4,75 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
-
+#include <string.h>
+#include <iostream>
+#include <ctype.h>
 #include "Log.h"
 
-int main() {
-	Log log = Log();
-	log.serverStarted();
+char* capitalize(char* str1) {
+	int i = 0;
+	while (str1[i]) {
+		str1[i] = toupper(str1[i]);
+		i++;
+	}
+	return str1;
+}
+
+int main(int argc, char *argv[]) {
+
+	int port = 2012;
+	int rateReq = 3; // x amount of requests
+	int rateSec = 60; // per x amount of seconds per user
+	int maxUsers = 3;
+	int timeout = 80; // seconds
+
+	for (int i = 1; i < argc; i++) { // can we assume we are given valid input
+		if (strcmp(capitalize(argv[i]), "PORT") == 0 && i + 1 < argc) {
+			int temporaryPort = atoi(argv[++i]); // cast to int
+			if (2000 <= temporaryPort && temporaryPort <= 3000) {
+				port = temporaryPort;
+			} else {
+				std::cout << "Invalid port, will use default" << std::endl;
+				i--;
+			}
+		} else if (strcmp(argv[i], "RATE_MSGS") == 0 && i + 1 < argc) {
+			int tempRateReq = atoi(argv[++i]);
+			if (tempRateReq > 0) {
+				rateReq = tempRateReq;
+			} else {
+				std::cout << "Invalid rate messages, will use default" << std::endl;
+				i--;
+			}
+		} else if (strcmp(argv[i], "RATE_TIME") == 0 && i + 1 < argc) {
+			int tempRateTime = atoi(argv[++i]);
+			if (tempRateTime > 0) {
+				rateSec = tempRateTime;
+			} else {
+				std::cout << "Invalid rate time, will use default" << std::endl;
+				i--;
+			}
+		} else if (strcmp(argv[i], "MAX_USERS") == 0 && i + 1 < argc) {
+			int tempMaxUsers = atoi(argv[++i]);
+			if (tempMaxUsers > 0) {
+				maxUsers = tempMaxUsers;
+			} else {
+				std::cout << "Invalid max users, will use default" << std::endl;
+				i--;
+			}
+		} else if (strcmp(argv[i], "TIMEOUT") == 0 && i + 1 < argc) {
+			int tempTimeout = atoi(argv[++i]);
+			if (tempTimeout > 0) {
+				timeout = tempTimeout;
+			} else {
+				std::cout << "Invalid timeout, will use default" << std::endl;
+				i--;
+			}
+		}
+	}
+
+	std::cout << std::to_string(port) + " " + std::to_string(rateReq) + " " + std::to_string(rateSec) + " " +
+	std::to_string(maxUsers) + " " + std::to_string(timeout) << std::endl;
+
 	char server_message[256] = "You have reached the server";
 
 	// create the server socket
@@ -37,4 +100,4 @@ int main() {
 	close(server_socket);
 
 	return 0;
-} 
+}
