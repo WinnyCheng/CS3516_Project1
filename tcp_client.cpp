@@ -1,10 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <string.h>
 
-#include<sys/types.h>
-#include<sys/socket.h>
+/**
+ * Sends an image from client to server
+ *
+ * @param imgURL - The path to the image
+ * @param socket - The file descriptor of the socket
+ *
+ * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
+ * Author Username: @Cubbi
+ */
+void sendImageToSocket(const char* imgURL, int socket) {
+	FILE *image = fopen(imgURL, "r");
+	fseek(image, 0, SEEK_END);
+	int size = ftell(image);
+	fseek(image, 0, SEEK_SET);
 
-#include<netinet/in.h>
+	//Send Picture Size
+	printf("Sending Picture Size\n");
+	write(socket, &size, sizeof(size));
+
+	//Send Picture as Byte Array
+	printf("Sending Picture as Byte Array\n");
+	char send_buffer[size];
+	while(!feof(image)) {
+		fread(send_buffer, 1, sizeof(send_buffer), image);
+		write(socket, send_buffer, sizeof(send_buffer));
+		bzero(send_buffer, sizeof(send_buffer));
+	}
+}
 
 int main() {
 
@@ -23,7 +52,11 @@ int main() {
 	if(connection_status == -1){
 		printf("There was an error making a connection to the remote socket");
 	}
-	// recieve data from the server
+
+	//send image
+	sendImageToSocket("qr_example.png", network_socket);
+
+	// receive data from the server
 	char server_response[256];
 	recv(network_socket, &server_response, sizeof(server_response), 0);
 

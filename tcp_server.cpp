@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include "Log.h"
 
-char* capitalize(char* str1) {
+char *capitalize(char *str1) {
 	int i = 0;
 	while (str1[i]) {
 		str1[i] = toupper(str1[i]);
@@ -87,12 +87,29 @@ int main(int argc, char *argv[]) {
 	server_address.sin_addr.s_addr = INADDR_ANY;
 
 	// bind the socket to our specified IP and port
-	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
+	bind(server_socket, (struct sockaddr *) &server_address, sizeof(server_address));
 
 	listen(server_socket, 5);
 
 	int client_socket;
 	client_socket = accept(server_socket, NULL, NULL);
+	//Read Picture Size
+	printf("Reading Picture Size\n");
+	int size;
+	read(client_socket, &size, sizeof(int));
+
+	//Read Picture Byte Array
+	printf("Reading Picture Byte Array\n");
+	char p_array[size];
+	read(client_socket, p_array, size);
+
+	//Convert it Back into Picture
+	printf("Converting Byte Array to Picture\n");
+	FILE *image;
+	image = fopen("c1.png", "w");
+	fwrite(p_array, 1, sizeof(p_array), image);
+	fclose(image);
+
 
 	// send the message
 	send(client_socket, server_message, sizeof(server_message), 0);
@@ -102,3 +119,4 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
+
