@@ -20,11 +20,14 @@ char* capitalize(char* str1) {
 
 int main(int argc, char *argv[]) {
 
+	// Defaults
 	int port = 2012;
 	int rateReq = 3; // x amount of requests
 	int rateSec = 60; // per x amount of seconds per user
 	int maxUsers = 3;
 	int timeout = 80; // seconds
+
+	Log logger = Log(); // output hardcoded to Log.txt
 
 	for (int i = 1; i < argc; i++) { // can we assume we are given valid input
 		if (strcmp(capitalize(argv[i]), "PORT") == 0 && i + 1 < argc) {
@@ -59,7 +62,7 @@ int main(int argc, char *argv[]) {
 				std::cout << "Invalid max users, will use default" << std::endl;
 				i--;
 			}
-		} else if (strcmp(argv[i], "TIMEOUT") == 0 && i + 1 < argc) {
+		} else if (strcmp(argv[i], "TIME_OUT") == 0 && i + 1 < argc) {
 			int tempTimeout = atoi(argv[++i]);
 			if (tempTimeout > 0) {
 				timeout = tempTimeout;
@@ -70,8 +73,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	std::cout << std::to_string(port) + " " + std::to_string(rateReq) + " " + std::to_string(rateSec) + " " +
-	std::to_string(maxUsers) + " " + std::to_string(timeout) << std::endl;
+	logger.serverStarted();
 
 	char server_message[256] = "You have reached the server";
 
