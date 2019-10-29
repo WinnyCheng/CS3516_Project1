@@ -15,4 +15,3 @@ codes URL as a response.
     - RATE_TIME : the timespan of RATE_MSG
     - MAX_USERS : the maximum amount of concurrent users
     - TIME_OUT : the time until a connection times out
-

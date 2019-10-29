@@ -27,8 +27,6 @@ int main(int argc, char *argv[]) {
 	int maxUsers = 3;
 	int timeout = 80; // seconds
 
-	Log logger = Log(); // output hardcoded to Log.txt
-
 	for (int i = 1; i < argc; i++) { // can we assume we are given valid input
 		if (strcmp(capitalize(argv[i]), "PORT") == 0 && i + 1 < argc) {
 			int temporaryPort = atoi(argv[++i]); // cast to int
@@ -73,6 +71,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	Log logger = Log(port, rateReq, rateSec, maxUsers, timeout); // output hardcoded to Log.txt
 	logger.serverStarted();
 
 	char server_message[256] = "You have reached the server";

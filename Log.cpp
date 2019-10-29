@@ -3,17 +3,23 @@
 #include <fstream>
 #include <mutex>
 
-// Mutexes to ensure class is threadsafe
+// Mutexes to ensure class is threadsafe, does this project forks though?
 std::mutex ioMutex; 
 std::mutex timeMutex; 
 
 // PUBLIC
 
-Log::Log() {}
+Log::Log(int port, int rateMSGS, int rateTime, int maxUsers, int timeout) {
+	Log::port = port;
+	Log::rateMSGS = rateMSGS;
+	Log::rateTime = rateTime;
+	Log::maxUsers = maxUsers;
+	Log::timeout = timeout;
+}
 Log::~Log() {}
 
 void Log::serverStarted() {
-    Log::write(Log::getTimeStamp() + " | Server started");
+    Log::write(Log::getTimeStamp() + " | Server started on port " + std::to_string(Log::port));
 }
 
 void Log::successfulConnection(string ip) {
