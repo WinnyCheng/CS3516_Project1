@@ -7,6 +7,7 @@
 #include <string.h>
 #include <iostream>
 #include <ctype.h>
+#include <getopt.h>
 #include "Log.h"
 
 char *capitalize(char *str1) {
@@ -18,6 +19,41 @@ char *capitalize(char *str1) {
 	return str1;
 }
 
+/**
+ * Sends an image from client to server
+ *
+ * @param imgURL - The path to the image
+ * @param socket - The file descriptor of the socket
+ *
+ * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
+ * Author Username: @Cubbi
+ */
+void readImageFromClient(const char* outputURL, int socket) {
+	//Read Picture Size
+	printf("Reading Picture Size\n");
+	int size;
+	read(socket, &size, sizeof(int));
+
+	//Read Picture Byte Array
+	printf("Reading Picture Byte Array\n");
+	char p_array[size];
+	read(socket, p_array, size);
+
+	//Convert it Back into Picture
+	printf("Converting Byte Array to Picture\n");
+	FILE *image;
+	image = fopen(outputURL, "w");
+	fwrite(p_array, 1, sizeof(p_array), image);
+	fclose(image);
+}
+
+/*
+ * Need to make sure your have java installed to exec
+ */
+//string convertQRToURL(const char *url) {
+//	exec("java -cp javase.jar:core.jar com.google.zxing.client.j2se.CommandLineRunner" + url)
+//}
+
 int main(int argc, char *argv[]) {
 
 	// Defaults
@@ -27,54 +63,70 @@ int main(int argc, char *argv[]) {
 	int maxUsers = 3;
 	int timeout = 80; // seconds
 
-	for (int i = 1; i < argc; i++) { // can we assume we are given valid input
-		if (strcmp(capitalize(argv[i]), "PORT") == 0 && i + 1 < argc) {
-			int temporaryPort = atoi(argv[++i]); // cast to int
-			if (2000 <= temporaryPort && temporaryPort <= 3000) {
-				port = temporaryPort;
-			} else {
-				std::cout << "Invalid port, will use default" << std::endl;
-				i--;
-			}
-		} else if (strcmp(argv[i], "RATE_MSGS") == 0 && i + 1 < argc) {
-			int tempRateReq = atoi(argv[++i]);
-			if (tempRateReq > 0) {
-				rateReq = tempRateReq;
-			} else {
-				std::cout << "Invalid rate messages, will use default" << std::endl;
-				i--;
-			}
-		} else if (strcmp(argv[i], "RATE_TIME") == 0 && i + 1 < argc) {
-			int tempRateTime = atoi(argv[++i]);
-			if (tempRateTime > 0) {
-				rateSec = tempRateTime;
-			} else {
-				std::cout << "Invalid rate time, will use default" << std::endl;
-				i--;
-			}
-		} else if (strcmp(argv[i], "MAX_USERS") == 0 && i + 1 < argc) {
-			int tempMaxUsers = atoi(argv[++i]);
-			if (tempMaxUsers > 0) {
-				maxUsers = tempMaxUsers;
-			} else {
-				std::cout << "Invalid max users, will use default" << std::endl;
-				i--;
-			}
-		} else if (strcmp(argv[i], "TIME_OUT") == 0 && i + 1 < argc) {
-			int tempTimeout = atoi(argv[++i]);
-			if (tempTimeout > 0) {
-				timeout = tempTimeout;
-			} else {
-				std::cout << "Invalid timeout, will use default" << std::endl;
-				i--;
-			}
+
+	static struct option long_options[] = {
+			{"PORT", optional_argument, 0,  'a'},
+			{"RATE_MSGS", optional_argument, 0,  'm'},
+			{"RATE_TIME", optional_argument, 0,  'r'},
+			{"MAX_USERS", optional_argument, 0,  'u'},
+			{"TIMEOUT", optional_argument, 0,  't'},
+			{0, 0, 0, 0}
+	};
+
+	int long_index =0;
+	int opt;
+	int tempArg;
+	while ((opt = getopt_long(argc, argv,"amrut::",long_options, &long_index )) != -1) {
+
+		switch (opt) {
+			case 'a' :
+				tempArg = atoi(optarg);
+				if (tempArg != 0 && 2000 <= tempArg && tempArg <= 3000) {
+					port = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << port << "]" << std::endl;
+				}
+				break;
+			case 'm' :
+				tempArg = atoi(optarg);
+				if (tempArg != 0) {
+					rateReq = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << rateReq << "]" << std::endl;
+				}
+				break;
+			case 'r' :
+				tempArg = atoi(optarg);
+				if (tempArg != 0) {
+					rateSec = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << rateSec << "]" << std::endl;
+				}
+				break;
+			case 'u' :
+				tempArg = atoi(optarg);
+				if (tempArg != 0) {
+					maxUsers = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << maxUsers << "]" << std::endl;
+				}
+				break;
+			case 't':
+				tempArg = atoi(optarg);
+				if (tempArg != 0) {
+					timeout = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << timeout << "]" << std::endl;
+				}
+				break;
 		}
 	}
 
+	std::cout << std::to_string(port) << " " << std::to_string(rateReq) << " " << std::to_string(rateSec) << " " <<
+	std::to_string(maxUsers) << " " << std::to_string(timeout) << std::endl;
+
 	Log logger = Log(port, rateReq, rateSec, maxUsers, timeout); // output hardcoded to Log.txt
 	logger.serverStarted();
-
-	char server_message[256] = "You have reached the server";
 
 	// create the server socket
 	int server_socket;
@@ -91,27 +143,12 @@ int main(int argc, char *argv[]) {
 
 	listen(server_socket, 5);
 
-	int client_socket;
-	client_socket = accept(server_socket, NULL, NULL);
-	//Read Picture Size
-	printf("Reading Picture Size\n");
-	int size;
-	read(client_socket, &size, sizeof(int));
+	int client_socket = accept(server_socket, NULL, NULL);
 
-	//Read Picture Byte Array
-	printf("Reading Picture Byte Array\n");
-	char p_array[size];
-	read(client_socket, p_array, size);
-
-	//Convert it Back into Picture
-	printf("Converting Byte Array to Picture\n");
-	FILE *image;
-	image = fopen("c1.png", "w");
-	fwrite(p_array, 1, sizeof(p_array), image);
-	fclose(image);
-
+	readImageFromClient("test.png", client_socket);
 
 	// send the message
+	char server_message[256] = "You have reached the server";
 	send(client_socket, server_message, sizeof(server_message), 0);
 
 	// close the socket
