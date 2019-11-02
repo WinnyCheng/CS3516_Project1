@@ -50,9 +50,12 @@ void readImageFromClient(const char* outputURL, int socket) {
 /*
  * Need to make sure your have java installed to exec
  */
-//string convertQRToURL(const char *url) {
-//	exec("java -cp javase.jar:core.jar com.google.zxing.client.j2se.CommandLineRunner" + url)
-//}
+void convertQRToURL(const char* url) {
+	char command[100];
+	strcpy(command, "java -cp \"javase.jar;core.jar\" com.google.zxing.client.j2se.CommandLineRunner ");
+	strcat(command, url);
+	system(command);
+}
 
 int main(int argc, char *argv[]) {
 
@@ -146,6 +149,7 @@ int main(int argc, char *argv[]) {
 	int client_socket = accept(server_socket, NULL, NULL);
 
 	readImageFromClient("test.png", client_socket);
+	convertQRToURL("test.png");
 
 	// send the message
 	char server_message[256] = "You have reached the server";
