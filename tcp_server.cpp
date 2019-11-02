@@ -170,11 +170,11 @@ int main(int argc, char *argv[]) {
 	int client_socket = accept(server_socket, NULL, NULL);
 
 	readImageFromClient("test.png", client_socket);
-	std::cout << "!!!!!! " << convertQRToURL("test.png") << "@@@@@";
 
 	// send the message
-	char server_message[256] = "You have reached the server";
-	send(client_socket, server_message, sizeof(server_message), 0);
+	std::string server_message = convertQRToURL("test.png");
+	std::cout << "!!!!!! " << server_message << "@@@@@";
+	send(client_socket, server_message.c_str(), server_message.size(), 0);
 
 	// close the socket
 	close(server_socket);
