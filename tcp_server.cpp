@@ -6,6 +6,11 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <array>
 #include <ctype.h>
 #include <getopt.h>
 #include "Log.h"
@@ -47,14 +52,30 @@ void readImageFromClient(const char* outputURL, int socket) {
 	fclose(image);
 }
 
-/*
- * Need to make sure your have java installed to exec
+/**
+ * Executes command in unix shell and then reads standard out and returns the value
+ *
+ * SOURCE: https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
+ * AUTHOR USERNAME: gregpaton08
  */
-void convertQRToURL(const char* url) {
+std::string exec(const char* cmd) {
+	std::array<char, 128> buffer;
+	std::string result;
+	std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+	if (!pipe) {
+		throw std::runtime_error("popen() failed!");
+	}
+	while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+		result += buffer.data();
+	}
+	return result;
+}
+
+std::string convertQRToURL(const char* url) {
 	char command[100];
 	strcpy(command, "java -cp \"javase.jar;core.jar\" com.google.zxing.client.j2se.CommandLineRunner ");
 	strcat(command, url);
-	system(command);
+	return(exec(command));
 }
 
 int main(int argc, char *argv[]) {
@@ -149,7 +170,7 @@ int main(int argc, char *argv[]) {
 	int client_socket = accept(server_socket, NULL, NULL);
 
 	readImageFromClient("test.png", client_socket);
-	convertQRToURL("test.png");
+	std::cout << "!!!!!! " << convertQRToURL("test.png") << "@@@@@";
 
 	// send the message
 	char server_message[256] = "You have reached the server";
