@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
 #include <string.h>
+#include <getopt.h>
 
 /**
  * Sends an image from client to server
@@ -35,7 +37,48 @@ void sendImageToSocket(const char* imgURL, int socket) {
 	}
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+	int port = 2012;
+	std::string address = "127.0.0.1";
+	std::string file="";
+
+	static struct option long_options[] = {
+			{"PORT", optional_argument, 0,  'p'},
+			{"ADDRESS", optional_argument, 0,  'a'},
+			{"FILE", optional_argument, 0,  'f'},
+			{0, 0, 0, 0}
+	};
+
+	int long_index =0;
+	int opt;
+	int tempArg;
+	while ((opt = getopt_long(argc, argv,"paf::",long_options, &long_index )) != -1) {
+
+		switch (opt) {
+			case 'p' :
+				tempArg = atoi(optarg);
+				if (tempArg != 0 && 2000 <= tempArg && tempArg <= 3000) {
+					port = tempArg;
+				} else {
+					std::cout << "invalid option [" << optarg <<"] defaulting to [" << port << "]" << std::endl;
+				}
+				break;
+			case 'a' :
+				address = optarg;
+				break;
+			case 'f' :
+				file = optarg;
+				break;
+		}
+	}
+	std::cout << std::to_string(port) << std::endl;
+	std::cout << file << std::endl;
+	std::cout << address << std::endl;
+
+	if (strcmp(file.c_str(), "") == 0) {
+		std::cout << "No file specified! Use --FILE=[filePath]" << std::endl;
+		return -1;
+	}
 
 	// create a socket
 	int network_socket;
