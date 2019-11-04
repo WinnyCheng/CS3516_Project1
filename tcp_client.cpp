@@ -71,9 +71,6 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	std::cout << std::to_string(port) << std::endl;
-	std::cout << file << std::endl;
-	std::cout << address << std::endl;
 
 	if (strcmp(file.c_str(), "") == 0) {
 		std::cout << "No file specified! Use --FILE=[filePath]" << std::endl;
@@ -95,16 +92,19 @@ int main(int argc, char *argv[]) {
 	if(connection_status == -1){
 		printf("There was an error making a connection to the remote socket");
 	}
+	while (strcmp(file.c_str(), "q") != 0) {
+		//send image
+		sendImageToSocket(file.c_str(), network_socket);
 
-	//send image
-	sendImageToSocket("qr_example.png", network_socket);
+		// receive data from the server
+		char server_response[256];
+		recv(network_socket, &server_response, sizeof(server_response), 0);
 
-	// receive data from the server
-	char server_response[256];
-	recv(network_socket, &server_response, sizeof(server_response), 0);
-
-	// print out the server's response
-	printf("The server sent the data. %s", server_response);
+		// print out the server's response
+		printf("The server sent the data. \n\n%s", server_response);
+		std::cout << "\nEnter a new image path or 'q' to exit: ";
+		std::cin >> file;
+	}
 
 	// and the close the socket
 	close(network_socket);

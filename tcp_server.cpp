@@ -1,4 +1,5 @@
 #define _BSD_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -32,17 +33,26 @@ char *capitalize(char *str1) {
  * @param imgURL - The path to the image
  * @param socket - The file descriptor of the socket
  *
+ * @return -1 on failure, 1 on success
+ *
  * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
  * Author Username: @Cubbi
  */
-void readImageFromClient(const char* outputURL, int socket) {
+void readImageFromClient(const char *outputURL, int socket) {
 	//Read Picture Size
 	int size;
-	read(socket, &size, sizeof(int));
-
+	int errorFlag;
+	errorFlag = read(socket, &size, sizeof(int));
+	if (errorFlag == -1) {
+		return errorFlag;
+	}
 	//Read Picture Byte Array
 	char p_array[size];
-	read(socket, p_array, size);
+	errorFlag = read(socket, p_array, size);
+	if (errorFlag == -1) {
+		return errorFlag;
+	}
+	return 1;
 
 	//Convert it Back into Picture
 	FILE *image;
@@ -57,7 +67,7 @@ void readImageFromClient(const char* outputURL, int socket) {
  * SOURCE: https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
  * AUTHOR USERNAME: gregpaton08
  */
-std::string exec(const char* cmd) {
+std::string exec(const char *cmd) {
 	std::array<char, 128> buffer;
 	std::string result;
 	std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
@@ -70,11 +80,11 @@ std::string exec(const char* cmd) {
 	return result;
 }
 
-std::string convertQRToURL(const char* url) {
+std::string convertQRToURL(const char *url) {
 	char command[100];
 	strcpy(command, "java -cp \"javase.jar;core.jar\" com.google.zxing.client.j2se.CommandLineRunner ");
 	strcat(command, url);
-	return(exec(command));
+	return (exec(command));
 }
 
 int main(int argc, char *argv[]) {
@@ -88,18 +98,18 @@ int main(int argc, char *argv[]) {
 
 
 	static struct option long_options[] = {
-			{"PORT", optional_argument, 0,  'a'},
-			{"RATE_MSGS", optional_argument, 0,  'm'},
-			{"RATE_TIME", optional_argument, 0,  'r'},
-			{"MAX_USERS", optional_argument, 0,  'u'},
-			{"TIMEOUT", optional_argument, 0,  't'},
-			{0, 0, 0, 0}
+			{"PORT",      optional_argument, 0, 'a'},
+			{"RATE_MSGS", optional_argument, 0, 'm'},
+			{"RATE_TIME", optional_argument, 0, 'r'},
+			{"MAX_USERS", optional_argument, 0, 'u'},
+			{"TIMEOUT",   optional_argument, 0, 't'},
+			{0,           0,                 0, 0}
 	};
 
-	int long_index =0;
+	int long_index = 0;
 	int opt;
 	int tempArg;
-	while ((opt = getopt_long(argc, argv,"amrut::",long_options, &long_index )) != -1) {
+	while ((opt = getopt_long(argc, argv, "amrut::", long_options, &long_index)) != -1) {
 
 		switch (opt) {
 			case 'a' :
@@ -107,7 +117,7 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0 && 2000 <= tempArg && tempArg <= 3000) {
 					port = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << port << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << port << "]" << std::endl;
 				}
 				break;
 			case 'm' :
@@ -115,7 +125,7 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0) {
 					rateReq = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << rateReq << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << rateReq << "]" << std::endl;
 				}
 				break;
 			case 'r' :
@@ -123,7 +133,7 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0) {
 					rateSec = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << rateSec << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << rateSec << "]" << std::endl;
 				}
 				break;
 			case 'u' :
@@ -131,7 +141,7 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0) {
 					maxUsers = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << maxUsers << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << maxUsers << "]" << std::endl;
 				}
 				break;
 			case 't':
@@ -139,14 +149,14 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0) {
 					timeout = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << timeout << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << timeout << "]" << std::endl;
 				}
 				break;
 		}
 	}
 
 	std::cout << std::to_string(port) << " " << std::to_string(rateReq) << " " << std::to_string(rateSec) << " " <<
-	std::to_string(maxUsers) << " " << std::to_string(timeout) << std::endl;
+	          std::to_string(maxUsers) << " " << std::to_string(timeout) << std::endl;
 
 	Log logger = Log(port, rateReq, rateSec, maxUsers, timeout); // output hardcoded to Log.txt
 	logger.serverStarted();
@@ -166,26 +176,31 @@ int main(int argc, char *argv[]) {
 
 	listen(server_socket, 5);
 	struct sockaddr_in newAddr;
+	int client_socket;
+	int childpid;
+	socklen_t addr_size;
 	while (true) {
-		int client_socket = accept(server_socket, (struct sockaddr*)&newAddr, NULL); // get new connections
+		client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
+		if (client_socket < 0) {
+			exit(1);
+		}
 		printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
-		if (client_socket >= 0) { // new connection
-			int pid = fork();
-			if (pid == 0) { // in the child process
-				close(server_socket);
-				while (true) {
-					readImageFromClient("test.png", client_socket); // should provide flow control
-					// send the message
-					printf("Sending to client!");
-					std::string server_message = convertQRToURL("test.png");
-					send(client_socket, server_message.c_str(), server_message.size(), 0);
 
-					// disconnect after 60seconds
-				}
+		if ((childpid = fork()) == 0) {
+			close(server_socket);
+
+			while (true) {
+				readImageFromClient("test.png", client_socket); // should provide flow control
+				// send the message
+				printf("Sending to client!");
+				std::string server_message = convertQRToURL("test.png");
+				send(client_socket, server_message.c_str(), server_message.size(), 0);
+
+				// disconnect after 60seconds
 			}
 		}
 	}
-	// close the socket
+
 	close(server_socket);
 	return 0;
 }
