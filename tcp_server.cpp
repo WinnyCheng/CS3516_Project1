@@ -41,18 +41,10 @@ char *capitalize(char *str1) {
 void readImageFromClient(const char *outputURL, int socket) {
 	//Read Picture Size
 	int size;
-	int errorFlag;
-	errorFlag = read(socket, &size, sizeof(int));
-	if (errorFlag == -1) {
-		return errorFlag;
-	}
+	read(socket, &size, sizeof(int));
 	//Read Picture Byte Array
 	char p_array[size];
 	errorFlag = read(socket, p_array, size);
-	if (errorFlag == -1) {
-		return errorFlag;
-	}
-	return 1;
 
 	//Convert it Back into Picture
 	FILE *image;
