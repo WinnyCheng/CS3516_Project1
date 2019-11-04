@@ -17,7 +17,7 @@
  * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
  * Author Username: @Cubbi
  */
-void sendImageToSocket(const char* imgURL, int socket) {
+void sendImageToSocket(const char *imgURL, int socket) {
 	FILE *image = fopen(imgURL, "r");
 	fseek(image, 0, SEEK_END);
 	int size = ftell(image);
@@ -30,32 +30,31 @@ void sendImageToSocket(const char* imgURL, int socket) {
 	//Send Picture as Byte Array
 	printf("Sending Picture as Byte Array\n");
 	char send_buffer[size];
-	while(!feof(image)) {
-		fread(send_buffer, 1, sizeof(send_buffer), image);
-		int itemsRead = write(socket, send_buffer, sizeof(send_buffer));
-		for (int i = 0; i < itemsRead; i++){
-			printf("%hd", send_buffer[i]);
-		}
-		bzero(send_buffer, sizeof(send_buffer));
+	fread(send_buffer, 1, sizeof(send_buffer), image);
+	int itemsRead = write(socket, send_buffer, sizeof(send_buffer));
+	for (int i = 0; i < itemsRead; i++) {
+		printf("%hd", send_buffer[i]);
 	}
+	printf("\n\n");
+	bzero(send_buffer, sizeof(send_buffer));
 }
 
 int main(int argc, char *argv[]) {
 	int port = 2012;
 	std::string address = "127.0.0.1";
-	std::string file="";
+	std::string file = "";
 
 	static struct option long_options[] = {
-			{"PORT", optional_argument, 0,  'p'},
-			{"ADDRESS", optional_argument, 0,  'a'},
-			{"FILE", optional_argument, 0,  'f'},
-			{0, 0, 0, 0}
+			{"PORT",    optional_argument, 0, 'p'},
+			{"ADDRESS", optional_argument, 0, 'a'},
+			{"FILE",    optional_argument, 0, 'f'},
+			{0,         0,                 0, 0}
 	};
 
-	int long_index =0;
+	int long_index = 0;
 	int opt;
 	int tempArg;
-	while ((opt = getopt_long(argc, argv,"paf::",long_options, &long_index )) != -1) {
+	while ((opt = getopt_long(argc, argv, "paf::", long_options, &long_index)) != -1) {
 
 		switch (opt) {
 			case 'p' :
@@ -63,7 +62,7 @@ int main(int argc, char *argv[]) {
 				if (tempArg != 0 && 2000 <= tempArg && tempArg <= 3000) {
 					port = tempArg;
 				} else {
-					std::cout << "invalid option [" << optarg <<"] defaulting to [" << port << "]" << std::endl;
+					std::cout << "invalid option [" << optarg << "] defaulting to [" << port << "]" << std::endl;
 				}
 				break;
 			case 'a' :
@@ -92,7 +91,7 @@ int main(int argc, char *argv[]) {
 
 	int connection_status = connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address));
 	// check for error with the connection
-	if(connection_status == -1){
+	if (connection_status == -1) {
 		printf("There was an error making a connection to the remote socket");
 	}
 	while (strcmp(file.c_str(), "q") != 0) {

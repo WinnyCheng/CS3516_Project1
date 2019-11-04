@@ -19,34 +19,34 @@ Log::Log(int port, int rateMSGS, int rateTime, int maxUsers, int timeout) {
 Log::~Log() {}
 
 void Log::serverStarted() {
-    Log::write(Log::getTimeStamp() + " | Server started on port " + std::to_string(Log::port) + "\n");
+    Log::write(Log::getTimeStamp() + "\t | Server started on port " + std::to_string(Log::port) + "\n");
 }
 
-void Log::successfulConnection(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | User connected\n");
+void Log::successfulConnection(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User connected\n");
 }
 
-void Log::validQRRequest(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | Received valid qr request\n");
+void Log::validQRRequest(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received valid qr request\n");
 }
 
-void Log::invalidQRRequest(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | Received invalid qr request\n");
+void Log::invalidQRRequest(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received invalid qr request\n");
 }
 
-void Log::userDisconnected(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | User disconnected\n");
+void Log::userDisconnected(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User disconnected\n");
 }
 
-void Log::userExceededRate(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | User exceeded request rate\n");
+void Log::userExceededRate(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User exceeded request rate\n");
 }
 
 /**
  * IP is of the user with the attempted connection that resulted in exceeding the max user threshold 
  */
-void Log::maxUsersExceeded(string ip) {
-    Log::write(Log::getTimeStamp() + " " + ip + " | Max concurrent users exceeded\n");
+void Log::maxUsersExceeded(string ip, int clientPort) {
+    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Max concurrent users exceeded\n");
 }
 
 // PRIVATE
