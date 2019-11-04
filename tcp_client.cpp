@@ -24,7 +24,7 @@ void sendImageToSocket(const char* imgURL, int socket) {
 	fseek(image, 0, SEEK_SET);
 
 	//Send Picture Size
-	printf("Sending Picture Size\n");
+	printf("Sending Picture Size %d\n", size);
 	write(socket, &size, sizeof(size));
 
 	//Send Picture as Byte Array
@@ -32,7 +32,10 @@ void sendImageToSocket(const char* imgURL, int socket) {
 	char send_buffer[size];
 	while(!feof(image)) {
 		fread(send_buffer, 1, sizeof(send_buffer), image);
-		write(socket, send_buffer, sizeof(send_buffer));
+		int itemsRead = write(socket, send_buffer, sizeof(send_buffer));
+		for (int i = 0; i < itemsRead; i++){
+			printf("%hd", send_buffer[i]);
+		}
 		bzero(send_buffer, sizeof(send_buffer));
 	}
 }

@@ -38,14 +38,22 @@ char *capitalize(char *str1) {
  * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
  * Author Username: @Cubbi
  */
-void readImageFromClient(const char *outputURL, int socket) {
+void readImageFromClient(const char *outputURL, int socket, Log *log, string ip) {
 	//Read Picture Size
 	int size;
-	read(socket, &size, sizeof(int));
+	if (read(socket, &size, sizeof(int)) <= 0) {
+		log->invalidQRRequest(ip);
+		return;
+	}
 	//Read Picture Byte Array
 	char p_array[size];
-	read(socket, p_array, size);
-
+	std::cout << std::to_string(size) << std::endl;
+	if (size == 0) return;
+	if (read(socket, p_array, size) <= 0) {
+		log->invalidQRRequest(ip);
+		return;
+	}
+	log->validQRRequest(ip);
 	//Convert it Back into Picture
 	FILE *image;
 	image = fopen(outputURL, "w");
@@ -169,27 +177,31 @@ int main(int argc, char *argv[]) {
 	listen(server_socket, 5);
 	struct sockaddr_in newAddr;
 	int client_socket;
-	int childpid;
+	int childpid = 1;
 	socklen_t addr_size;
 	while (true) {
-		client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
-		if (client_socket < 0) {
-			exit(1);
+		if (childpid > 0) { // only parent
+			client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
+			if (client_socket < 0) {
+				logger.userDisconnected(inet_ntoa(newAddr.sin_addr));
+				break;
+			} else {
+				logger.successfulConnection(inet_ntoa(newAddr.sin_addr));
+				printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
+			}
+			childpid = fork();
+			std::cout << "Forked! child pid " << std::to_string(childpid) << std::endl;
 		}
-		printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
-		logger.successfulConnection(inet_ntoa(newAddr.sin_addr));
-		if ((childpid = fork()) == 0) {
-			close(server_socket);
-			readImageFromClient("test.png", client_socket); // should provide flow control
-			// send the message
 
+		if (childpid == 0) {
+			close(server_socket);
+			readImageFromClient("test.png", client_socket, &logger, inet_ntoa(newAddr.sin_addr)); // should provide flow control
+
+			// send the message
 			std::string server_message = convertQRToURL("test.png");
 			send(client_socket, server_message.c_str(), server_message.size(), 0);
-
-			// disconnect after 60seconds
 		}
 	}
-
 	close(server_socket);
 	return 0;
 }
