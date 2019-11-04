@@ -33,7 +33,7 @@ char *capitalize(char *str1) {
  * @param imgURL - The path to the image
  * @param socket - The file descriptor of the socket
  *
- * @return -1 on disconnected socket, 0 on invalid request, 1 on success
+ * @return -1 on disconnected socket, 1 on invalid request, 0 on success
  *
  * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
  * Author Username: @Cubbi
@@ -52,7 +52,7 @@ int readImageFromClient(const char *outputURL, int socket) {
 	char p_array[size];
 	validity = read(socket, p_array, size);
 	if (validity == 0) {
-		return 0;
+		return 1;
 	} else if (validity == -1) {
 		return -1;
 	}
@@ -61,7 +61,7 @@ int readImageFromClient(const char *outputURL, int socket) {
 	image = fopen(outputURL, "w");
 	fwrite(p_array, 1, sizeof(p_array), image);
 	fclose(image);
-	return 1;
+	return 0;
 }
 
 /**
@@ -199,17 +199,22 @@ int main(int argc, char *argv[]) {
 		if (childpid == 0) {
 			close(server_socket);
 			int result = readImageFromClient("test.png", client_socket); // should provide flow control
+
+			// send the message
+			std::string server_message = convertQRToURL("test.png");
+			send(client_socket, &result, sizeof(int), 0);
+
 			if (result == -1) {
 				logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 				break;
-			} else if (result == 0) {
-				logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 			} else if (result == 1) {
+				logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+			} else if (result == 0) {
+				int length = server_message.length();
+				send(client_socket, &length, sizeof(int), 0);
+				send(client_socket, server_message.c_str(), server_message.size(), 0);
 				logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 			}
-			// send the message
-			std::string server_message = convertQRToURL("test.png");
-			send(client_socket, server_message.c_str(), server_message.size(), 0);
 		}
 	}
 	close(client_socket);

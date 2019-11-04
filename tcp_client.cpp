@@ -98,12 +98,30 @@ int main(int argc, char *argv[]) {
 		//send image
 		sendImageToSocket(file.c_str(), network_socket);
 
-		// receive data from the server
-		char server_response[256];
-		recv(network_socket, &server_response, sizeof(server_response), 0);
+		int code;
+		recv(network_socket, &code, sizeof(int), 0);
 
-		// print out the server's response
-		printf("The server sent the data. \n\n%s", server_response);
+		if(code == 0){
+			int length;
+			recv(network_socket, &length, sizeof(int), 0);
+
+			// receive data from the server
+			char server_response[length];
+			recv(network_socket, &server_response, sizeof(server_response), 0);
+
+			// print out the server's response
+			printf("The server sent the data. \n\n%s", server_response);
+		}
+		else if(code == 1){
+			printf("Invaild request or voilated network security\n");
+		}
+		else if(code == 2){
+			printf("Time out. Connection has been closed\n");
+			break;
+		}
+		else if(code == 3){
+			printf("Rate Limit Exceed.\n");
+		}
 		std::cout << "\nEnter a new image path or 'q' to exit: ";
 		std::cin >> file;
 	}
