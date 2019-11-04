@@ -43,18 +43,14 @@ int readImageFromClient(const char *outputURL, int socket) {
 	//Read Picture Size
 	int size;
 	int validity = read(socket, &size, sizeof(int));
-	if (validity == 0) {
-		return 0;
-	} else if (validity == -1){
+	if (validity <= 0){
 		return -1;
 	}
 
 	//Read Picture Byte Array
 	char p_array[size];
 	validity = read(socket, p_array, size);
-	if (validity == 0) {
-		return 1;
-	} else if (validity == -1) {
+	if (validity <= 0) {
 		return -1;
 	}
 	//Convert it Back into Picture
@@ -201,26 +197,29 @@ int main(int argc, char *argv[]) {
 			close(server_socket);
 			int result = readImageFromClient("test.png", client_socket); // should provide flow control
 
-			// send the message
-			std::string server_message = convertQRToURL("test.png");
+            if (result == -1) {
+                logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                break;
+            }
+            else{
+                // send the message
+                std::string server_message = convertQRToURL("test.png");
 
-			if(strstr(server_message.c_str(), "No barcode found") != NULL && result != -1){
-				result = 1;
-			}
+                if(strstr(server_message.c_str(), "No barcode found") != NULL){
+                    result = 1;
+                }
 
-			send(client_socket, &result, sizeof(int), 0);
+                send(client_socket, &result, sizeof(int), 0);
 
-			if (result == -1) {
-				logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
-				break;
-			} else if (result == 1) {
-				logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
-			} else if (result == 0) {
-				int length = server_message.length();
-				send(client_socket, &length, sizeof(int), 0);
-				send(client_socket, server_message.c_str(), server_message.size(), 0);
-				logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
-			}
+                if (result == 1) {
+                    logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                } else if (result == 0) {
+                    int length = server_message.length();
+                    send(client_socket, &length, sizeof(int), 0);
+                    send(client_socket, server_message.c_str(), server_message.size(), 0);
+                    logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                }
+            }
 		}
 	}
 	close(client_socket);
