@@ -41,10 +41,13 @@ char *capitalize(char *str1) {
 void readImageFromClient(const char *outputURL, int socket) {
 	//Read Picture Size
 	int size;
-	read(socket, &size, sizeof(int));
+	int errorFlag;
+	errorFlag = read(socket, &size, sizeof(int));
+	if (errorFlag <= 0) return;
 	//Read Picture Byte Array
 	char p_array[size];
 	errorFlag = read(socket, p_array, size);
+	if (errorFlag <= 0) return;
 
 	//Convert it Back into Picture
 	FILE *image;
@@ -95,7 +98,7 @@ int main(int argc, char *argv[]) {
 			{"RATE_TIME", optional_argument, 0, 'r'},
 			{"MAX_USERS", optional_argument, 0, 'u'},
 			{"TIMEOUT",   optional_argument, 0, 't'},
-			{0,           0,                 0, 0}
+			{0, 0, 0, 0}
 	};
 
 	int long_index = 0;
@@ -184,16 +187,13 @@ int main(int argc, char *argv[]) {
 			while (true) {
 				readImageFromClient("test.png", client_socket); // should provide flow control
 				// send the message
-				printf("Sending to client!");
 				std::string server_message = convertQRToURL("test.png");
 				send(client_socket, server_message.c_str(), server_message.size(), 0);
-
-				// disconnect after 60seconds
 			}
 		}
 	}
 
-	close(server_socket);
+	close(client_socket);
 	return 0;
 }
 
