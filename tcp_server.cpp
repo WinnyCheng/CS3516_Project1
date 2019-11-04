@@ -42,6 +42,7 @@ char *capitalize(char *str1) {
 int readImageFromClient(const char *outputURL, int socket) {
 	//Read Picture Size
 	int size;
+	const int MAX_SIZE = 50000; // 50kb
 	int validity = read(socket, &size, sizeof(int));
 	if (validity <= 0){
 		return -1;
@@ -53,12 +54,24 @@ int readImageFromClient(const char *outputURL, int socket) {
 	if (validity <= 0) {
 		return -1;
 	}
+	if (MAX_SIZE < size) { // secure server, clear buffer, return error
+		return 1;
+	}
 	//Convert it Back into Picture
 	FILE *image;
 	image = fopen(outputURL, "w");
 	fwrite(p_array, 1, sizeof(p_array), image);
 	fclose(image);
 	return 0;
+}
+
+string parseURL(char* rawOutput) {
+	const char delim2[3] = "\n";
+	strtok(rawOutput, delim2); // not concerned with tokens before
+	strtok(NULL, delim2);
+	strtok(NULL, delim2);
+	strtok(NULL, delim2);
+	return strtok(NULL, delim2);;
 }
 
 /**
@@ -84,7 +97,7 @@ std::string convertQRToURL(const char *url) {
 	char command[100];
 	strcpy(command, "java -cp \"javase.jar;core.jar\" com.google.zxing.client.j2se.CommandLineRunner ");
 	strcat(command, url);
-	return (exec(command));
+	return exec(command);
 }
 
 int main(int argc, char *argv[]) {
@@ -155,11 +168,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	std::cout << std::to_string(port) << " " << std::to_string(rateReq) << " " << std::to_string(rateSec) << " " <<
-	          std::to_string(maxUsers) << " " << std::to_string(timeout) << std::endl;
-
 	Log logger = Log(port, rateReq, rateSec, maxUsers, timeout); // output hardcoded to Log.txt
-	logger.serverStarted();
+	std::cout << logger.serverStarted();
 
 	// create the server socket
 	int server_socket;
@@ -183,14 +193,12 @@ int main(int argc, char *argv[]) {
 		if (childpid > 0) { // only parent
 			client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
 			if (client_socket < 0) {
-				logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+				std::cout << logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 				break;
 			} else {
-				logger.successfulConnection(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
-				printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
+				std::cout << logger.successfulConnection(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 			}
 			childpid = fork();
-			std::cout << "Forked! child pid " << std::to_string(childpid) << std::endl;
 		}
 
 		if (childpid == 0) {
@@ -198,7 +206,7 @@ int main(int argc, char *argv[]) {
 			int result = readImageFromClient("test.png", client_socket); // should provide flow control
 
             if (result == -1) {
-                logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+	            std::cout << logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 break;
             }
             else{
@@ -209,15 +217,17 @@ int main(int argc, char *argv[]) {
                     result = 1;
                 }
 
+                server_message = parseURL(const_cast<char*>(server_message.c_str()));
+
                 send(client_socket, &result, sizeof(int), 0);
 
                 if (result == 1) {
-                    logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+	                std::cout << logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 } else if (result == 0) {
                     int length = server_message.length();
                     send(client_socket, &length, sizeof(int), 0);
                     send(client_socket, server_message.c_str(), server_message.size(), 0);
-                    logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+	                std::cout << logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 }
             }
 		}

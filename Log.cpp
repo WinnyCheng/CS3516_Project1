@@ -18,35 +18,51 @@ Log::Log(int port, int rateMSGS, int rateTime, int maxUsers, int timeout) {
 }
 Log::~Log() {}
 
-void Log::serverStarted() {
-    Log::write(Log::getTimeStamp() + "\t | Server started on port " + std::to_string(Log::port) + "\n");
+string Log::serverStarted() {
+	string output = Log::getTimeStamp() + "\t | Server started PORT=" + std::to_string(Log::port) + ", RATE_MSGS=" +
+			std::to_string(Log::rateMSGS) + ", RATE_TIME=" + std::to_string(Log::rateTime) + ", MAX_USERS=" +
+			std::to_string(Log::maxUsers) + ", TIMEOUT=" +std::to_string(Log::timeout) + "\n";
+    Log::write(output);
+    return output;
 }
 
-void Log::successfulConnection(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User connected\n");
+string Log::successfulConnection(string ip, int clientPort) {
+	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User connected\n";
+    Log::write(output);
+    return output;
 }
 
-void Log::validQRRequest(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received valid qr request\n");
+string Log::validQRRequest(string ip, int clientPort) {
+	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received valid qr request\n";
+	Log::write(output);
+	return output;
 }
 
-void Log::invalidQRRequest(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received invalid qr request\n");
+string Log::invalidQRRequest(string ip, int clientPort) {
+	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Received invalid qr request\n";
+	Log::write(output);
+	return output;
 }
 
-void Log::userDisconnected(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User disconnected\n");
+string Log::userDisconnected(string ip, int clientPort) {
+	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User disconnected\n";
+	Log::write(output);
+	return output;
 }
 
-void Log::userExceededRate(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User exceeded request rate\n");
+string Log::userExceededRate(string ip, int clientPort) {
+	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User exceeded request rate\n";
+	Log::write(output);
+	return output;
 }
 
 /**
  * IP is of the user with the attempted connection that resulted in exceeding the max user threshold 
  */
-void Log::maxUsersExceeded(string ip, int clientPort) {
-    Log::write(Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Max concurrent users exceeded\n");
+string Log::maxUsersExceeded(string ip, int clientPort) {
+    string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | Max concurrent users exceeded\n";
+	Log::write(output);
+	return output;
 }
 
 // PRIVATE

@@ -31,11 +31,7 @@ void sendImageToSocket(const char *imgURL, int socket) {
 	printf("Sending Picture as Byte Array\n");
 	char send_buffer[size];
 	fread(send_buffer, 1, sizeof(send_buffer), image);
-	int itemsRead = write(socket, send_buffer, sizeof(send_buffer));
-	for (int i = 0; i < itemsRead; i++) {
-		printf("%hd", send_buffer[i]);
-	}
-	printf("\n\n");
+	write(socket, send_buffer, sizeof(send_buffer));
 	bzero(send_buffer, sizeof(send_buffer));
 }
 
@@ -48,7 +44,7 @@ int main(int argc, char *argv[]) {
 			{"PORT",    optional_argument, 0, 'p'},
 			{"ADDRESS", optional_argument, 0, 'a'},
 			{"FILE",    optional_argument, 0, 'f'},
-			{0,         0,                 0, 0}
+			{0, 0, 0, 0}
 	};
 
 	int long_index = 0;
@@ -110,17 +106,17 @@ int main(int argc, char *argv[]) {
 			recv(network_socket, &server_response, sizeof(server_response), 0);
 
 			// print out the server's response
-			printf("The server sent the data. \n\n%s", server_response);
+			printf("Parsed URL: %s\n", server_response);
 		}
 		else if(code == 1){
-			printf("Invaild request or voilated network security\n");
+			printf("Invalid request or violated network security\n");
 		}
 		else if(code == 2){
-			printf("Time out. Connection has been closed\n");
+			printf("Max connection time without interaction exceeded. Connection has been closed\n");
 			break;
 		}
 		else if(code == 3){
-			printf("Rate Limit Exceed.\n");
+			printf("Too many request! The rate limit was exceed. Please try again later.\n");
 		}
 		std::cout << "\nEnter a new image path or 'q' to exit: ";
 		std::cin >> file;

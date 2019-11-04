@@ -10,13 +10,13 @@ class Log {
 public:
     Log(int port, int rateMSGS, int rateTime, int maxUsers, int timeout);
     ~Log();
-    void serverStarted();
-    void successfulConnection(string ip, int clientPort);
-    void validQRRequest(string ip, int clientPort);
-    void invalidQRRequest(string ip, int clientPort);
-    void userDisconnected(string ip, int clientPort);
-    void userExceededRate(string ip, int clientPort);
-    void maxUsersExceeded(string ip, int clientPort);
+    string serverStarted();
+    string successfulConnection(string ip, int clientPort);
+    string validQRRequest(string ip, int clientPort);
+    string invalidQRRequest(string ip, int clientPort);
+    string userDisconnected(string ip, int clientPort);
+    string userExceededRate(string ip, int clientPort);
+    string maxUsersExceeded(string ip, int clientPort);
 private:
     string getTimeStamp();
     void write(string logEntry);
