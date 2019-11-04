@@ -44,7 +44,7 @@ void readImageFromClient(const char *outputURL, int socket) {
 	read(socket, &size, sizeof(int));
 	//Read Picture Byte Array
 	char p_array[size];
-	errorFlag = read(socket, p_array, size);
+	read(socket, p_array, size);
 
 	//Convert it Back into Picture
 	FILE *image;
@@ -177,19 +177,16 @@ int main(int argc, char *argv[]) {
 			exit(1);
 		}
 		printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
-
+		logger.successfulConnection(inet_ntoa(newAddr.sin_addr));
 		if ((childpid = fork()) == 0) {
 			close(server_socket);
+			readImageFromClient("test.png", client_socket); // should provide flow control
+			// send the message
 
-			while (true) {
-				readImageFromClient("test.png", client_socket); // should provide flow control
-				// send the message
-				printf("Sending to client!");
-				std::string server_message = convertQRToURL("test.png");
-				send(client_socket, server_message.c_str(), server_message.size(), 0);
+			std::string server_message = convertQRToURL("test.png");
+			send(client_socket, server_message.c_str(), server_message.size(), 0);
 
-				// disconnect after 60seconds
-			}
+			// disconnect after 60seconds
 		}
 	}
 
