@@ -1,9 +1,11 @@
+#define _BSD_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <string.h>
 #include <iostream>
 #include <cstdio>
@@ -35,17 +37,14 @@ char *capitalize(char *str1) {
  */
 void readImageFromClient(const char* outputURL, int socket) {
 	//Read Picture Size
-	printf("Reading Picture Size\n");
 	int size;
 	read(socket, &size, sizeof(int));
 
 	//Read Picture Byte Array
-	printf("Reading Picture Byte Array\n");
 	char p_array[size];
 	read(socket, p_array, size);
 
 	//Convert it Back into Picture
-	printf("Converting Byte Array to Picture\n");
 	FILE *image;
 	image = fopen(outputURL, "w");
 	fwrite(p_array, 1, sizeof(p_array), image);
@@ -166,19 +165,28 @@ int main(int argc, char *argv[]) {
 	bind(server_socket, (struct sockaddr *) &server_address, sizeof(server_address));
 
 	listen(server_socket, 5);
+	struct sockaddr_in newAddr;
+	while (true) {
+		int client_socket = accept(server_socket, (struct sockaddr*)&newAddr, NULL); // get new connections
+		printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
+		if (client_socket >= 0) { // new connection
+			int pid = fork();
+			if (pid == 0) { // in the child process
+				close(server_socket);
+				while (true) {
+					readImageFromClient("test.png", client_socket); // should provide flow control
+					// send the message
+					printf("Sending to client!");
+					std::string server_message = convertQRToURL("test.png");
+					send(client_socket, server_message.c_str(), server_message.size(), 0);
 
-	int client_socket = accept(server_socket, NULL, NULL);
-
-	readImageFromClient("test.png", client_socket);
-
-	// send the message
-	std::string server_message = convertQRToURL("test.png");
-	std::cout << "!!!!!! " << server_message << "@@@@@";
-	send(client_socket, server_message.c_str(), server_message.size(), 0);
-
+					// disconnect after 60seconds
+				}
+			}
+		}
+	}
 	// close the socket
 	close(server_socket);
-
 	return 0;
 }
 
