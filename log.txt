@@ -1,1 +1,49 @@
 2019-11-03 20:42:46 127.0.0.1 | User connected
+2019-11-04 11:59:41	 | Server started on port 2012
+2019-11-04 11:59:44 3.0.0.0:65096	 | User connected
+2019-11-04 11:59:44 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 11:59:50 3.0.0.0:65096	 | User disconnected
+2019-11-04 11:59:53 127.0.0.1:24589	 | User connected
+2019-11-04 11:59:53 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:00 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:04 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:09 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:14 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:18 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:20 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:25 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:36 127.0.0.1:24589	 | Received valid qr request
+2019-11-04 12:00:39 127.0.0.1:24589	 | User disconnected
+2019-11-04 12:04:37	 | Server started on port 2012
+2019-11-04 12:04:49	 | Server started on port 2012
+2019-11-04 12:04:52 3.0.0.0:65096	 | User connected
+2019-11-04 12:04:52 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:04:58 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:04:59 3.0.0.0:65096	 | User disconnected
+2019-11-04 12:05:53	 | Server started on port 2012
+2019-11-04 12:06:43	 | Server started on port 2012
+2019-11-04 12:06:48 3.0.0.0:65096	 | User connected
+2019-11-04 12:06:48 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:06:55 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:06:58 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:06:59 3.0.0.0:65096	 | User disconnected
+2019-11-04 12:33:06	 | Server started on port 2012
+2019-11-04 12:33:10 3.0.0.0:65096	 | User connected
+2019-11-04 12:33:10 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:33:16 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:33:23 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:39:27	 | Server started on port 2012
+2019-11-04 12:39:33 3.0.0.0:65096	 | User connected
+2019-11-04 12:39:34 3.0.0.0:65096	 | Received valid qr request
+2019-11-04 12:41:56	 | Server started on port 2012
+2019-11-04 12:41:59 3.0.0.0:65096	 | User connected
+2019-11-04 12:42:00 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:42:04 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:42:56	 | Server started on port 2012
+2019-11-04 12:42:59 3.0.0.0:65096	 | User connected
+2019-11-04 12:43:00 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:43:07 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:45:43	 | Server started on port 2012
+2019-11-04 12:45:49 3.0.0.0:65096	 | User connected
+2019-11-04 12:45:49 3.0.0.0:65096	 | Received invalid qr request
+2019-11-04 12:45:55 3.0.0.0:65096	 | Received invalid qr request

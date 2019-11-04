@@ -1,5 +1,6 @@
 #define _BSD_SOURCE
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -202,6 +203,11 @@ int main(int argc, char *argv[]) {
 
 			// send the message
 			std::string server_message = convertQRToURL("test.png");
+
+			if(strstr(server_message.c_str(), "No barcode found") != NULL && result != -1){
+				result = 1;
+			}
+
 			send(client_socket, &result, sizeof(int), 0);
 
 			if (result == -1) {
