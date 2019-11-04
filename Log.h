@@ -11,12 +11,12 @@ public:
     Log(int port, int rateMSGS, int rateTime, int maxUsers, int timeout);
     ~Log();
     void serverStarted();
-    void successfulConnection(string ip);
-    void validQRRequest(string ip);
-    void invalidQRRequest(string ip);
-    void userDisconnected(string ip);
-    void userExceededRate(string ip);
-    void maxUsersExceeded(string ip);
+    void successfulConnection(string ip, int clientPort);
+    void validQRRequest(string ip, int clientPort);
+    void invalidQRRequest(string ip, int clientPort);
+    void userDisconnected(string ip, int clientPort);
+    void userExceededRate(string ip, int clientPort);
+    void maxUsersExceeded(string ip, int clientPort);
 private:
     string getTimeStamp();
     void write(string logEntry);
