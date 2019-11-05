@@ -57,7 +57,7 @@ int readImageFromClient(const char *outputURL, int socket) {
 	if (MAX_SIZE < size) { // secure server, clear buffer, return error
 		return 1;
 	}
-	//Convert it Back into Picture
+	// Convert it Back into Picture
 	FILE *image;
 	image = fopen(outputURL, "w");
 	fwrite(p_array, 1, sizeof(p_array), image);
@@ -71,7 +71,7 @@ string parseURL(char* rawOutput) {
 	strtok(NULL, delim2);
 	strtok(NULL, delim2);
 	strtok(NULL, delim2);
-	return strtok(NULL, delim2);;
+	return strtok(NULL, delim2);
 }
 
 /**
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
 	// define the server address
 	struct sockaddr_in server_address;
 	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(9002);
+	server_address.sin_port = htons(port);
 	server_address.sin_addr.s_addr = INADDR_ANY;
 
 	// bind the socket to our specified IP and port
