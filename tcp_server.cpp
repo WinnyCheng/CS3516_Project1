@@ -1,5 +1,6 @@
 #define _BSD_SOURCE
 
+#include <ctime>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +20,10 @@
 #include <ctype.h>
 #include <getopt.h>
 #include "Log.h"
+
+int numRequests = 0;
+std::time_t startTime;
+std::time_t curTime;
 
 char *capitalize(char *str1) {
 	int i = 0;
@@ -57,6 +62,7 @@ int readImageFromClient(const char *outputURL, int socket) {
 	if (validity <= 0) {
 		return -1;
 	}
+    numRequests++;
 	if (MAX_SIZE < size) { // secure server, clear buffer, return error
 		return 1;
 	}
@@ -206,7 +212,6 @@ int main(int argc, char *argv[]) {
 	struct timeval timeoutStruct;
 	timeoutStruct.tv_sec = timeout;
 	timeoutStruct.tv_usec = 0;
-
 	while (true) {
 		bool maxUsersExceeded = false;
 		if (childpid > 0) { // only parent
@@ -225,6 +230,7 @@ int main(int argc, char *argv[]) {
 			} else {
 				maxUsersExceeded= false;
 				std::cout << logger.successfulConnection(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                startTime = std::time(0);
 			}
 
 			if (!maxUsersExceeded) {
@@ -255,6 +261,16 @@ int main(int argc, char *argv[]) {
                 // if send image not a vaild QR code
                 if(strstr(server_message.c_str(), "No barcode found") != NULL){
                     result = 1;
+                }
+
+                // checks if exceeds rate limiting
+                curTime = std::time(0);
+                if((curTime-startTime) > rateSec){
+                    numRequests = 0;
+                    startTime=curTime;
+                }
+                if(numRequests > rateReq){
+                    result = 3;
                 }
 
                 //send result code
