@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <algorithm>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -102,6 +103,14 @@ std::string convertQRToURL(const char *url) {
 	return exec(command);
 }
 
+int countChildren() {
+	char command[10];
+	strcpy(command, "ps ");
+	strcat(command, std::to_string(getpid()).c_str());
+	string output = exec(command);
+	return (std::count(output.begin(), output.end(), '\n') - 2) / 2;
+}
+
 int main(int argc, char *argv[]) {
 
 	// Defaults
@@ -109,6 +118,7 @@ int main(int argc, char *argv[]) {
 	int rateReq = 3; // x amount of requests
 	int rateSec = 60; // per x amount of seconds per user
 	int maxUsers = 3;
+	int currentUsers = 0;
 	int timeout = 80; // seconds
 
 
@@ -198,23 +208,36 @@ int main(int argc, char *argv[]) {
 	timeoutStruct.tv_usec = 0;
 
 	while (true) {
+		bool maxUsersExceeded = false;
 		if (childpid > 0) { // only parent
 			client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
+			currentUsers = countChildren() - 1;
 			if (client_socket < 0) {
 				std::cout << logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 				break;
+			} else if (currentUsers == maxUsers) { // next fork will exceed
+				int maxUserCode = 4;
+				maxUsersExceeded = true;
+				std::cout << logger.maxUsersExceeded(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+				send(client_socket, &maxUserCode, sizeof(int), 0);
+				close(client_socket);
+
 			} else {
+				maxUsersExceeded= false;
 				std::cout << logger.successfulConnection(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
 			}
-			childpid = fork();
+
+			if (!maxUsersExceeded) {
+				childpid = fork();
+			}
 		}
 
 		if (childpid == 0) {
 			close(server_socket);
 
 			setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeoutStruct, sizeof(timeoutStruct));
-
-			int result = readImageFromClient("test.png", client_socket); // should provide flow control
+			string filePath = "qr" + std::to_string(currentUsers) + ".png";
+			int result = readImageFromClient(filePath.c_str(), client_socket); // should provide flow control
 
             if (result == -1) {
 	            std::cout << logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
@@ -227,7 +250,7 @@ int main(int argc, char *argv[]) {
             }
             else{
                 // convert QR code image to url
-                std::string server_message = convertQRToURL("test.png");
+                std::string server_message = convertQRToURL(filePath.c_str());
 
                 // if send image not a vaild QR code
                 if(strstr(server_message.c_str(), "No barcode found") != NULL){

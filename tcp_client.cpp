@@ -117,6 +117,9 @@ int main(int argc, char *argv[]) {
 		}
 		else if(code == 3){
 			printf("Too many request! The rate limit was exceed. Please try again later.\n");
+		} else if (code == 4) {
+			printf("Max users already reached! Try again later");
+			break;
 		}
 		std::cout << "\nEnter a new image path or 'q' to exit: ";
 		std::cin >> file;
