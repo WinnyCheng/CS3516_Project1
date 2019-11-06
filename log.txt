@@ -1,77 +1,293 @@
-2019-11-03 20:42:46 127.0.0.1 | User connected
-2019-11-04 11:59:41	 | Server started on port 2012
-2019-11-04 11:59:44 3.0.0.0:65096	 | User connected
-2019-11-04 11:59:44 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 11:59:50 3.0.0.0:65096	 | User disconnected
-2019-11-04 11:59:53 127.0.0.1:24589	 | User connected
-2019-11-04 11:59:53 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:00 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:04 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:09 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:14 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:18 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:20 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:25 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:36 127.0.0.1:24589	 | Received valid qr request
-2019-11-04 12:00:39 127.0.0.1:24589	 | User disconnected
-2019-11-04 12:04:37	 | Server started on port 2012
-2019-11-04 12:04:49	 | Server started on port 2012
-2019-11-04 12:04:52 3.0.0.0:65096	 | User connected
-2019-11-04 12:04:52 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:04:58 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:04:59 3.0.0.0:65096	 | User disconnected
-2019-11-04 12:05:53	 | Server started on port 2012
-2019-11-04 12:06:43	 | Server started on port 2012
-2019-11-04 12:06:48 3.0.0.0:65096	 | User connected
-2019-11-04 12:06:48 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:06:55 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:06:58 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:06:59 3.0.0.0:65096	 | User disconnected
-2019-11-04 12:33:06	 | Server started on port 2012
-2019-11-04 12:33:10 3.0.0.0:65096	 | User connected
-2019-11-04 12:33:10 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:33:16 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:33:23 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:39:27	 | Server started on port 2012
-2019-11-04 12:39:33 3.0.0.0:65096	 | User connected
-2019-11-04 12:39:34 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:41:56	 | Server started on port 2012
-2019-11-04 12:41:59 3.0.0.0:65096	 | User connected
-2019-11-04 12:42:00 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:42:04 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:42:56	 | Server started on port 2012
-2019-11-04 12:42:59 3.0.0.0:65096	 | User connected
-2019-11-04 12:43:00 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:43:07 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:45:43	 | Server started on port 2012
-2019-11-04 12:45:49 3.0.0.0:65096	 | User connected
-2019-11-04 12:45:49 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:45:55 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:47:06	 | Server started on port 2012
-2019-11-04 12:47:13 3.0.0.0:65096	 | User connected
-2019-11-04 12:47:13 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:47:19 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:47:25 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:49:16	 | Server started on port 2012
-2019-11-04 12:49:23 3.0.0.0:65096	 | User connected
-2019-11-04 12:49:24 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:49:28 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:50:32	 | Server started on port 2012
-2019-11-04 12:50:35 3.0.0.0:65096	 | User connected
-2019-11-04 12:50:36 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:50:49 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:50:53 3.0.0.0:65096	 | Received invalid qr request
-2019-11-04 12:50:53 3.0.0.0:65096	 | User disconnected
-2019-11-04 12:51:34	 | Server started on port 2012
-2019-11-04 12:51:39 3.0.0.0:65096	 | User connected
-2019-11-04 12:51:39 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:51:55 127.0.0.1:60429	 | User connected
-2019-11-04 12:51:55 127.0.0.1:60429	 | Received valid qr request
-2019-11-04 12:53:40	 | Server started on port 2012
-2019-11-04 12:53:43 3.0.0.0:65096	 | User connected
-2019-11-04 12:53:44 3.0.0.0:65096	 | Received valid qr request
-2019-11-04 12:53:45 3.0.0.0:65096	 | User disconnected
-2019-11-04 12:53:54 127.0.0.1:62733	 | User connected
-2019-11-04 12:53:55 127.0.0.1:62733	 | Received valid qr request
-2019-11-04 12:54:01 127.0.0.1:62733	 | Received invalid qr request
-2019-11-04 12:54:09 127.0.0.1:62733	 | User disconnected
+2019-11-05 19:35:00	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 19:35:11 3.0.0.0:65091	 | User connected
+2019-11-05 19:35:11 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 19:35:16 3.0.0.0:65091	 | Received invalid qr request
+2019-11-05 19:35:19 3.0.0.0:65091	 | User disconnected
+2019-11-05 19:57:12	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 19:57:36 0.0.0.0:0	 | User connected
+2019-11-05 19:57:36 0.0.0.0:0	 | Received valid qr request
+2019-11-05 19:58:29	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 19:58:43 0.0.0.0:0	 | User connected
+2019-11-05 19:58:44 0.0.0.0:0	 | Received valid qr request
+2019-11-05 19:59:04 0.0.0.0:0	 | User disconnected
+2019-11-05 19:59:44	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 19:59:49 0.0.0.0:0	 | User connected
+2019-11-05 19:59:49 0.0.0.0:0	 | Received valid qr request
+2019-11-05 20:00:10 0.0.0.0:0	 | User disconnected
+2019-11-05 20:01:30	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:01:33 0.0.0.0:0	 | User connected
+2019-11-05 20:01:33 0.0.0.0:0	 | Received valid qr request
+2019-11-05 20:01:54 0.0.0.0:0	 | User disconnected
+2019-11-05 20:04:55	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=5
+2019-11-05 20:05:20	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:05:22 0.0.0.0:0	 | User connected
+2019-11-05 20:05:23 0.0.0.0:0	 | Received valid qr request
+2019-11-05 20:06:00 0.0.0.0:0	 | User disconnected
+2019-11-05 20:09:40	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:09:43 3.0.0.0:65091	 | User connected
+2019-11-05 20:09:44 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:10:04 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:11:12	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:11:14 0.0.0.0:0	 | User connected
+2019-11-05 20:11:15 0.0.0.0:0	 | Received valid qr request
+2019-11-05 20:11:20 0.0.0.0:0	 | Received valid qr request
+2019-11-05 20:11:40 0.0.0.0:0	 | User disconnected
+2019-11-05 20:13:07	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:13:12 3.0.0.0:65091	 | User connected
+2019-11-05 20:13:12 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:13:16 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:13:21 3.0.0.0:65091	 | Received invalid qr request
+2019-11-05 20:14:08 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:14:44	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 20:14:50	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:14:52 3.0.0.0:65091	 | User connected
+2019-11-05 20:14:53 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:15:34 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:16:54	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:16:57 3.0.0.0:65091	 | User connected
+2019-11-05 20:16:58 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:17:18 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:18:19	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=10
+2019-11-05 20:18:22 3.0.0.0:65091	 | User connected
+2019-11-05 20:18:23 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:18:37 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:18:51	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=10
+2019-11-05 20:18:53 3.0.0.0:65091	 | User connected
+2019-11-05 20:18:54 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:19:05 3.0.0.0:65091	 | User disconnected
+2019-11-05 20:19:56	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=10
+2019-11-05 20:19:58 3.0.0.0:65091	 | User connected
+2019-11-05 20:19:59 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 20:20:09 3.0.0.0:65091	 | User timed-out
+2019-11-05 20:22:33	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=10
+2019-11-05 20:22:36	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:22:41 0.0.0.0:0	 | User connected
+2019-11-05 20:22:41 0.0.0.0:0	 | User timed-out
+2019-11-05 20:22:54	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=10
+2019-11-05 20:23:01 0.0.0.0:0	 | User connected
+2019-11-05 20:23:01 0.0.0.0:0	 | User timed-out
+2019-11-05 20:23:15	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 20:23:18 0.0.0.0:0	 | User connected
+2019-11-05 20:23:18 0.0.0.0:0	 | User timed-out
+2019-11-05 21:17:53	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=20
+2019-11-05 21:17:56 3.0.0.0:65091	 | User connected
+2019-11-05 21:17:57 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 21:18:00 3.0.0.0:65091	 | User disconnected
+2019-11-05 21:18:26 127.0.0.1:15903	 | User connected
+2019-11-05 21:18:27 127.0.0.1:15903	 | Received valid qr request
+2019-11-05 21:18:30 127.0.0.1:15903	 | Received valid qr request
+2019-11-05 21:18:50 127.0.0.1:15903	 | User disconnected
+2019-11-05 21:26:49	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 21:54:13	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 21:54:22 3.0.0.0:65091	 | User connected
+2019-11-05 21:54:23 3.0.0.0:65091	 | Received valid qr request
+2019-11-05 21:54:33 3.0.0.0:65091	 | User disconnected
+2019-11-05 22:10:51	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:12:43	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:14:20	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:14:23 0.0.0.0:0	 | User connected
+2019-11-05 22:14:24 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:14:26 0.0.0.0:0	 | User disconnected
+2019-11-05 22:14:36 127.0.0.1:46112	 | User connected
+2019-11-05 22:14:36 127.0.0.1:46112	 | Received valid qr request
+2019-11-05 22:14:39 127.0.0.1:46112	 | User disconnected
+2019-11-05 22:15:20	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:15:25 0.0.0.0:0	 | User connected
+2019-11-05 22:15:25 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:15:34 0.0.0.0:0	 | User disconnected
+2019-11-05 22:15:45 127.0.0.1:46880	 | User connected
+2019-11-05 22:15:46 127.0.0.1:46880	 | Received valid qr request
+2019-11-05 22:15:47 127.0.0.1:46880	 | User disconnected
+2019-11-05 22:15:50 127.0.0.1:47136	 | User connected
+2019-11-05 22:15:50 127.0.0.1:47136	 | Received valid qr request
+2019-11-05 22:15:53 127.0.0.1:47136	 | User disconnected
+2019-11-05 22:21:01 127.0.0.1:50208	 | User connected
+2019-11-05 22:21:01 127.0.0.1:50208	 | Received valid qr request
+2019-11-05 22:21:04 127.0.0.1:50208	 | User disconnected
+2019-11-05 22:22:26	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:22:29 0.0.0.0:0	 | User connected
+2019-11-05 22:22:30 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:22:34 0.0.0.0:0	 | User disconnected
+2019-11-05 22:22:52	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:22:56 0.0.0.0:0	 | User connected
+2019-11-05 22:22:57 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:23:00 0.0.0.0:0	 | User disconnected
+2019-11-05 22:31:41	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=200
+2019-11-05 22:31:46 0.0.0.0:0	 | User connected
+2019-11-05 22:31:46 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:31:52 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:31:55 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:32:01 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:32:07 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:32:09 0.0.0.0:0	 | User disconnected
+2019-11-05 22:34:26	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:34:32 0.0.0.0:0	 | User connected
+2019-11-05 22:34:33 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:34:36 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:34:43 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:34:44 0.0.0.0:0	 | User disconnected
+2019-11-05 22:35:37	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:35:40 0.0.0.0:0	 | User connected
+2019-11-05 22:35:40 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:35:43 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:35:47 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:35:51 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:35:54 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:35:59 0.0.0.0:0	 | User disconnected
+2019-11-05 22:37:13	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:37:17 0.0.0.0:0	 | User connected
+2019-11-05 22:37:17 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:37:20 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:37:23 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:37:26 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:37:29 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:37:34 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:37:41 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:37:45 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:37:54 0.0.0.0:0	 | User disconnected
+2019-11-05 22:38:28	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:38:32 0.0.0.0:0	 | User connected
+2019-11-05 22:38:32 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:38:40 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:38:49 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:39:00 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:39:13 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:39:17 0.0.0.0:0	 | User disconnected
+2019-11-05 22:40:04	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:40:08 0.0.0.0:0	 | User connected
+2019-11-05 22:40:09 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:40:17 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:40:27 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:40:35 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:40:36 0.0.0.0:0	 | User disconnected
+2019-11-05 22:50:07	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:50:10 0.0.0.0:0	 | User connected
+2019-11-05 22:50:10 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:50:19 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:50:25 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:50:31 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:50:34 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:50:37 0.0.0.0:0	 | Received invalid qr request
+2019-11-05 22:50:38 0.0.0.0:0	 | User disconnected
+2019-11-05 22:52:24	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:52:27 0.0.0.0:0	 | User connected
+2019-11-05 22:52:27 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:52:31 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:52:33 0.0.0.0:0	 | User disconnected
+2019-11-05 22:52:52 127.0.0.1:13857	 | User connected
+2019-11-05 22:52:53 127.0.0.1:13857	 | Received valid qr request
+2019-11-05 22:52:58 127.0.0.1:13857	 | User disconnected
+2019-11-05 22:53:02	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:53:04 0.0.0.0:0	 | User connected
+2019-11-05 22:53:05 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:53:09 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:53:13 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:53:15 0.0.0.0:0	 | User disconnected
+2019-11-05 22:54:06	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:54:09 0.0.0.0:0	 | User connected
+2019-11-05 22:54:10 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:54:18 127.0.0.1:15137	 | User connected
+2019-11-05 22:54:19 127.0.0.1:15137	 | Received valid qr request
+2019-11-05 22:54:32 0.0.0.0:0	 | User timed-out
+2019-11-05 22:54:38 127.0.0.1:15137	 | Received valid qr request
+2019-11-05 22:55:32 127.0.0.1:15137	 | Received valid qr request
+2019-11-05 22:55:35 127.0.0.1:15137	 | Received invalid qr request
+2019-11-05 22:55:36 127.0.0.1:15137	 | User disconnected
+2019-11-05 22:57:23	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 22:57:25 0.0.0.0:0	 | User connected
+2019-11-05 22:57:26 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:57:34 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:57:38 0.0.0.0:0	 | Received valid qr request
+2019-11-05 22:57:49 0.0.0.0:0	 | User disconnected
+2019-11-05 22:57:52 127.0.0.1:17185	 | User connected
+2019-11-05 22:57:52 127.0.0.1:17185	 | Received valid qr request
+2019-11-05 22:57:54 127.0.0.1:17441	 | User connected
+2019-11-05 22:57:55 127.0.0.1:17441	 | Received valid qr request
+2019-11-05 22:58:00 127.0.0.1:17185	 | Received valid qr request
+2019-11-05 22:58:05 127.0.0.1:17441	 | Received valid qr request
+2019-11-05 22:58:11 127.0.0.1:17185	 | Received valid qr request
+2019-11-05 22:58:16 127.0.0.1:17441	 | Received valid qr request
+2019-11-05 23:08:51	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:09:05 0.0.0.0:0	 | User connected
+2019-11-05 23:09:06 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:09:15 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:09:25 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:09:34 0.0.0.0:0	 | User disconnected
+2019-11-05 23:12:56	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:13:00 0.0.0.0:0	 | User connected
+2019-11-05 23:13:01 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:13:04 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:13:06 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:13:33 0.0.0.0:0	 | User timed-out
+2019-11-05 23:14:13	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:14:16 0.0.0.0:0	 | User connected
+2019-11-05 23:14:17 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:14:19 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:14:22 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:14:42 0.0.0.0:0	 | User disconnected
+2019-11-05 23:20:47	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:20:50 0.0.0.0:0	 | User connected
+2019-11-05 23:20:51 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:20:54 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:20:56 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:21:02 0.0.0.0:0	 | User disconnected
+2019-11-05 23:21:49	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:21:51 0.0.0.0:0	 | User connected
+2019-11-05 23:21:52 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:21:54 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:21:56 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:22:04 0.0.0.0:0	 | User disconnected
+2019-11-05 23:23:06	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:23:10 0.0.0.0:0	 | User connected
+2019-11-05 23:23:10 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:13 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:15 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:21 0.0.0.0:0	 | User disconnected
+2019-11-05 23:23:34	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:23:36 0.0.0.0:0	 | User connected
+2019-11-05 23:23:37 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:39 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:40 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:23:45 0.0.0.0:0	 | User disconnected
+2019-11-05 23:30:07	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:30:19 0.0.0.0:0	 | User connected
+2019-11-05 23:30:41	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:30:45 0.0.0.0:0	 | User connected
+2019-11-05 23:30:58 0.0.0.0:0	 | User disconnected
+2019-11-05 23:31:01 127.0.0.1:55073	 | User connected
+2019-11-05 23:32:12	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:32:17 0.0.0.0:0	 | User connected
+2019-11-05 23:32:17 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:32:20 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:32:23 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:32:28 0.0.0.0:0	 | User disconnected
+2019-11-05 23:36:59	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:37:02 0.0.0.0:0	 | User connected
+2019-11-05 23:37:03 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:37:06 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:37:08 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:37:10 0.0.0.0:0	 | User timed-out
+2019-11-05 23:37:12 127.0.0.1:60449	 | User connected
+2019-11-05 23:37:13 127.0.0.1:60449	 | Received valid qr request
+2019-11-05 23:37:17 127.0.0.1:60449	 | Received valid qr request
+2019-11-05 23:37:19 127.0.0.1:60449	 | Received valid qr request
+2019-11-05 23:38:56 127.0.0.1:60449	 | User disconnected
+2019-11-05 23:39:04	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:39:07 0.0.0.0:0	 | User connected
+2019-11-05 23:39:08 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:39:11 0.0.0.0:0	 | User timed-out
+2019-11-05 23:39:13 127.0.0.1:62241	 | User connected
+2019-11-05 23:39:14 127.0.0.1:62241	 | Received valid qr request
+2019-11-05 23:39:17 127.0.0.1:62241	 | Received valid qr request
+2019-11-05 23:39:18 127.0.0.1:62241	 | Received valid qr request
+2019-11-05 23:39:43 127.0.0.1:62241	 | User disconnected
+2019-11-05 23:39:53	 | Server started PORT=2012, RATE_MSGS=3, RATE_TIME=60, MAX_USERS=3, TIMEOUT=80
+2019-11-05 23:39:57 0.0.0.0:0	 | User connected
+2019-11-05 23:39:57 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:03 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:05 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:42 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:45 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:49 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:40:51 0.0.0.0:0	 | Received valid qr request
+2019-11-05 23:41:03 0.0.0.0:0	 | User disconnected

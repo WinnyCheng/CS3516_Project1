@@ -1,5 +1,6 @@
 #define _BSD_SOURCE
 
+#include <ctime>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +19,10 @@
 #include <ctype.h>
 #include <getopt.h>
 #include "Log.h"
+
+int numRequests = 0;
+std::time_t startTime;
+std::time_t curTime;
 
 char *capitalize(char *str1) {
 	int i = 0;
@@ -56,6 +61,7 @@ int readImageFromClient(const char *outputURL, int socket) {
 	if (validity <= 0) {
 		return -1;
 	}
+    numRequests++;
 	if (MAX_SIZE < size) { // secure server, clear buffer, return error
 		return 1;
 	}
@@ -196,7 +202,6 @@ int main(int argc, char *argv[]) {
 	struct timeval timeoutStruct;
 	timeoutStruct.tv_sec = timeout;
 	timeoutStruct.tv_usec = 0;
-
 	while (true) {
 		if (childpid > 0) { // only parent
 			client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
@@ -205,15 +210,14 @@ int main(int argc, char *argv[]) {
 				break;
 			} else {
 				std::cout << logger.successfulConnection(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                startTime = std::time(0);
 			}
 			childpid = fork();
 		}
-
 		if (childpid == 0) {
 			close(server_socket);
 
 			setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeoutStruct, sizeof(timeoutStruct));
-
 			int result = readImageFromClient("test.png", client_socket); // should provide flow control
 
             if (result == -1) {
@@ -225,13 +229,22 @@ int main(int argc, char *argv[]) {
 	            close(client_socket);
             	break;
             }
-            else{
+            else {
                 // convert QR code image to url
                 std::string server_message = convertQRToURL("test.png");
-
                 // if send image not a vaild QR code
-                if(strstr(server_message.c_str(), "No barcode found") != NULL){
+                if (strstr(server_message.c_str(), "No barcode found") != NULL) {
                     result = 1;
+                }
+
+                // checks if exceeds rate limiting
+                curTime = std::time(0);
+                if((curTime-startTime) > rateSec){
+                    numRequests = 0;
+                    startTime=curTime;
+                }
+                if(numRequests > rateReq){
+                    result = 3;
                 }
 
                 //send result code
@@ -239,10 +252,10 @@ int main(int argc, char *argv[]) {
 
                 if (result == 1) { // invalid QR request
                     // log invalid QR request
-	                std::cout << logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                    std::cout << logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 } else if (result == 0) { //success
                     // parse message to only contain url
-                    server_message = parseURL(const_cast<char*>(server_message.c_str()));
+                    server_message = parseURL(const_cast<char *>(server_message.c_str()));
                     // length of message
                     int length = server_message.length();
                     // send message length
@@ -250,7 +263,7 @@ int main(int argc, char *argv[]) {
                     // send message
                     send(client_socket, server_message.c_str(), server_message.size(), 0);
                     // log vaild QR request
-	                std::cout << logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+                    std::cout << logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 }
             }
 		}
