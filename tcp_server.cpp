@@ -34,7 +34,7 @@ char *capitalize(char *str1) {
  * @param imgURL - The path to the image
  * @param socket - The file descriptor of the socket
  *
- * @return -1 on disconnected socket, 1 on invalid request, 0 on success
+ * @return -1 on disconnected socket, 1 on invalid request, 0 on success, 2 on timeout
  *
  * SOURCE: https://stackoverflow.com/questions/5638831/c-char-array
  * Author Username: @Cubbi
@@ -44,8 +44,10 @@ int readImageFromClient(const char *outputURL, int socket) {
 	int size;
 	const int MAX_SIZE = 50000; // 50kb
 	int validity = read(socket, &size, sizeof(int));
-	if (validity <= 0){
+	if (validity == 0){
 		return -1;
+	} else if (validity < 0) {
+		return  2;
 	}
 
 	//Read Picture Byte Array
@@ -217,6 +219,11 @@ int main(int argc, char *argv[]) {
             if (result == -1) {
 	            std::cout << logger.userDisconnected(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 break;
+            } else if (result == 2) { // timeout
+	            send(client_socket, &result, sizeof(int), 0);
+            	std::cout << logger.userTimeout(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
+	            close(client_socket);
+            	break;
             }
             else{
                 // convert QR code image to url
