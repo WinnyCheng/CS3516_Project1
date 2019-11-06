@@ -49,6 +49,11 @@ string Log::userDisconnected(string ip, int clientPort) {
 	Log::write(output);
 	return output;
 }
+string Log::userTimeout(string ip, int clientPort) {
+    string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User timed-out\n";
+    Log::write(output);
+    return output;
+}
 
 string Log::userExceededRate(string ip, int clientPort) {
 	string output = Log::getTimeStamp() + " " + ip + ":" + std::to_string(clientPort) + "\t | User exceeded request rate\n";

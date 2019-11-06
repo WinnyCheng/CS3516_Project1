@@ -15,6 +15,7 @@ public:
     string validQRRequest(string ip, int clientPort);
     string invalidQRRequest(string ip, int clientPort);
     string userDisconnected(string ip, int clientPort);
+    string userTimeout(string ip, int clientPort);
     string userExceededRate(string ip, int clientPort);
     string maxUsersExceeded(string ip, int clientPort);
 private:

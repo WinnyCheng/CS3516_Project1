@@ -189,6 +189,12 @@ int main(int argc, char *argv[]) {
 	int client_socket;
 	int childpid = 1;
 	socklen_t addr_size;
+
+	// timeout
+	struct timeval timeoutStruct;
+	timeoutStruct.tv_sec = timeout;
+	timeoutStruct.tv_usec = 0;
+
 	while (true) {
 		if (childpid > 0) { // only parent
 			client_socket = accept(server_socket, (struct sockaddr *) &newAddr, &addr_size);
@@ -203,6 +209,9 @@ int main(int argc, char *argv[]) {
 
 		if (childpid == 0) {
 			close(server_socket);
+
+			setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeoutStruct, sizeof(timeoutStruct));
+
 			int result = readImageFromClient("test.png", client_socket); // should provide flow control
 
             if (result == -1) {
