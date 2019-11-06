@@ -210,23 +210,30 @@ int main(int argc, char *argv[]) {
                 break;
             }
             else{
-                // send the message
+                // convert QR code image to url
                 std::string server_message = convertQRToURL("test.png");
 
+                // if send image not a vaild QR code
                 if(strstr(server_message.c_str(), "No barcode found") != NULL){
                     result = 1;
                 }
 
-                server_message = parseURL(const_cast<char*>(server_message.c_str()));
-
+                //send result code
                 send(client_socket, &result, sizeof(int), 0);
 
-                if (result == 1) {
+                if (result == 1) { // invalid QR request
+                    // log invalid QR request
 	                std::cout << logger.invalidQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
-                } else if (result == 0) {
+                } else if (result == 0) { //success
+                    // parse message to only contain url
+                    server_message = parseURL(const_cast<char*>(server_message.c_str()));
+                    // length of message
                     int length = server_message.length();
+                    // send message length
                     send(client_socket, &length, sizeof(int), 0);
+                    // send message
                     send(client_socket, server_message.c_str(), server_message.size(), 0);
+                    // log vaild QR request
 	                std::cout << logger.validQRRequest(inet_ntoa(newAddr.sin_addr), newAddr.sin_port);
                 }
             }

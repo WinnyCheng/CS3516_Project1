@@ -15,6 +15,8 @@ client:  tcp_client.o
 tcp_client.o:  tcp_client.cpp
 	$(CC) $(CFLAGS) -c tcp_client.cpp
 
-
 Log.o:  Log.cpp Log.h
 	$(CC) $(CFLAGS) -c Log.cpp
+
+clean:
+	rm server client *.o
